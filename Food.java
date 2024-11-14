@@ -2,18 +2,20 @@ package till_system;
 
 import java.util.ArrayList;
 
-public class Food {
+public class Food extends Order {
 
 	private String name;
-	private float price;
+	private double itemPrice;
 	private String size;
+	private String type;
 	private ArrayList<Add_ons> add_ons = new ArrayList<Add_ons>();
 
 	
-	public Food(String name, float price, String size) {
+	public Food(String name, double itemPrice, String size) {
 		this.name = name;
-		this.price = price;
+		this.itemPrice = itemPrice;
 		this.size = size;
+		this.type = "Drink";
 	}
 
 
@@ -22,13 +24,17 @@ public class Food {
 	}
 
 
-	public float getPrice() {
-		return price;
+	public double getItemPrice() {
+		return itemPrice;
 	}
 
 
 	public String getSize() {
 		return size;
+	}
+	
+	public String getType() {
+		return type;
 	}
 
 

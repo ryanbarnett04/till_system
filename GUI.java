@@ -8,10 +8,13 @@ import javax.swing.*;
 public class GUI implements ActionListener {
 
 	// Create useful variables
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    Order currentOrder = new Order();
+    private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private Order currentOrder;
     private String location = "";
-    private String currentPanel = "";
+    private JPanel currentPanel;
+    private String currentPanelName = "";
+    private Object recentItem;
+    
     
     // Create frame and panels
     private JFrame frame;
@@ -216,58 +219,111 @@ public class GUI implements ActionListener {
         frame.add(cardPanel);
         cardLayout.show(cardPanel, "Home");
         frame.setVisible(true);
-        currentPanel = "Home";
+        currentPanel = homescreen;
+        currentPanelName = "Home";
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    	
+        
+        if (e.getSource() == change_location_button) {
+
+            if (location.equals("IN")) {
+                location = "OUT";
+                change_location_button.setText("Go to EI");
+            } else {
+                location = "IN";
+                change_location_button.setText("Go to TA");
+            }
+
+            currentPanel.add(change_location_button);
+            cardLayout.show(cardPanel, currentPanelName);
+        }
+        
         if (e.getSource() == sit_in_button) {
-            location = "Go to TA";
-            currentPanel = "Hot Drinks";
+            location = "IN";
+            currentPanel = hot_drinks;
+            currentPanelName = "Hot Drinks";
             create_hot_drinks_panel();
+            String l = "";            
+            if (location.equals("IN")) {
+            	l = "Sit-In";
+            } else {
+            	l = "Takeaway";
+            }            
+            currentOrder = new Order(l);           
         }
         
         if (e.getSource() == take_away_button) {
-        	location = "Go to EI";
-        	currentPanel = "Hot Drinks";
-        	create_hot_drinks_panel();
+        	location = "OUT";
+            currentPanel = hot_drinks;
+            currentPanelName = "Hot Drinks";
+            create_hot_drinks_panel();
+            String l = "";            
+            if (location.equals("OUT")) {
+            	l = "Takeaway";
+            } else {
+            	l = "Sit-In";
+            }            
+            currentOrder = new Order(l);
         }
         
-        if (e.getSource() == change_panel_drinks && currentPanel.equals("Hot Drinks") == false) {
-        	currentPanel = "Hot Drinks";
-        	create_hot_drinks_panel();
+        if (e.getSource() == change_panel_drinks && !currentPanelName.equals("Hot Drinks")) {
+            currentPanel = hot_drinks;
+            currentPanelName = "Hot Drinks";
+            create_hot_drinks_panel();
         }
         
-        if (e.getSource() == change_panel_food && currentPanel.equals("Food") == false) {
-        	currentPanel = "Food";
-        	create_food_panel();
+        if (e.getSource() == change_panel_food && !currentPanelName.equals("Food")) {
+            currentPanel = food;
+            currentPanelName = "Food";
+            create_food_panel();
         }
         
-        if (e.getSource() == change_panel_hot_drinks && currentPanel.equals("Hot Drinks") == false) {
-        	currentPanel = "Hot Drinks";
-        	create_hot_drinks_panel();
+        if (e.getSource() == change_panel_hot_drinks && !currentPanelName.equals("Hot Drinks")) {
+            currentPanel = hot_drinks;
+            currentPanelName = "Hot Drinks";
+            create_hot_drinks_panel();
         }
         
-        if (e.getSource() == change_panel_iced_drinks && currentPanel.equals("Iced Drinks") == false) {
-        	currentPanel = "Iced Drinks";
-        	create_iced_drinks_panel();
+        if (e.getSource() == change_panel_iced_drinks && !currentPanelName.equals("Iced Drinks")) {
+            currentPanel = iced_drinks;
+            currentPanelName = "Iced Drinks";
+            create_iced_drinks_panel();
+        }
+        
+        if (e.getSource() == americano_blackSML) {
+        	Drink d = new Drink("Americano", 3.80, "SML");
+        	currentOrder.addItem(d);
+        	currentOrder.setOrderPrice(currentOrder.getOrderPrice() + 3.80);
+        	recentItem = d;
+        	System.out.println(currentOrder.getOrderList());
         }
     }
-    
-    // Panel creation methods
-    
-    public void create_drinks_base(JPanel panel) {
+        
+    // Panel creation methods    
+    public void create_top_bar(JPanel panel) {
     	panel.add(change_location_button);
-    	change_location_button.setText(location);
     	panel.add(change_panel_drinks);
     	panel.add(change_panel_food);
+    	panel.add(change_panel_hot_drinks);
+    	panel.add(change_panel_iced_drinks);
+    	
+    	if (location.equals("IN")) {
+    		change_location_button.setText("Go to TA");
+    	} else {
+    		change_location_button.setText("Go to EI");
+    	}
+    }
+    
+    public void create_drinks_tabs(JPanel panel) {
     	panel.add(change_panel_hot_drinks);
     	panel.add(change_panel_iced_drinks);
     }
             
     public void create_hot_drinks_panel() {
-    	create_drinks_base(hot_drinks);
+    	create_top_bar(hot_drinks);
+    	create_drinks_tabs(hot_drinks);
     	hot_drinks.add(americano_blackSML);
     	hot_drinks.add(americano_blackMED);
     	hot_drinks.add(americano_blackLRG);
@@ -289,7 +345,8 @@ public class GUI implements ActionListener {
     }
     
     public void create_iced_drinks_panel() {
-    	create_drinks_base(iced_drinks);
+    	create_top_bar(iced_drinks);
+    	create_drinks_tabs(iced_drinks);
     	iced_drinks.add(iced_latteSML);
     	cardLayout.show(cardPanel, "Iced Drinks");
     }
@@ -300,6 +357,12 @@ public class GUI implements ActionListener {
     	food.add(change_panel_drinks);
     	food.add(change_panel_food);
     	food.add(toast);
+    	
+    	if (location.equals("IN")) {
+    		change_location_button.setText("Go to TA");
+    	} else {
+    		change_location_button.setText("Go to EI");
+    	}
     	cardLayout.show(cardPanel, "Food");
     }
 }
