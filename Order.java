@@ -1,9 +1,11 @@
 package till_system;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Order {
 	
+	DecimalFormat df = new DecimalFormat("0.00");
 	private String location;
 	private double totalPrice;
 	private ArrayList<Object> orderList;
@@ -59,8 +61,22 @@ public class Order {
 	    } else if (item instanceof Drink) {
 	        return ((Drink) item).getAdd_ons();
 	    } else {
-	        return null; // Item is not of type Food or Drink
+	        return null;
 	    }
+	}
+	
+	public void printOrder() {
+		System.out.println("Order:");
+		for (Object o : orderList) {
+			if (o instanceof Drink) {
+				Drink d = (Drink) o;
+				System.out.println(d.getSize() + " " + d.getName() + " £" + df.format(d.getItemPrice()));
+			} else if (o instanceof Food) {
+				Food f = (Food) o;
+				System.out.println(f.getName() + " £" + df.format(f.getItemPrice()));
+			}
+		}
+		System.out.println("\n");
 	}
 
 

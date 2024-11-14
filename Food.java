@@ -6,15 +6,13 @@ public class Food extends Order {
 
 	private String name;
 	private double itemPrice;
-	private String size;
 	private String type;
 	private ArrayList<Add_ons> add_ons = new ArrayList<Add_ons>();
 
 	
-	public Food(String name, double itemPrice, String size) {
+	public Food(String name, double itemPrice) {
 		this.name = name;
 		this.itemPrice = itemPrice;
-		this.size = size;
 		this.type = "Drink";
 	}
 
@@ -26,11 +24,6 @@ public class Food extends Order {
 
 	public double getItemPrice() {
 		return itemPrice;
-	}
-
-
-	public String getSize() {
-		return size;
 	}
 	
 	public String getType() {

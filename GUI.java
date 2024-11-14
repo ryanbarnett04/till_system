@@ -297,7 +297,7 @@ public class GUI implements ActionListener {
         	currentOrder.addItem(d);
         	currentOrder.setOrderPrice(currentOrder.getOrderPrice() + 3.80);
         	recentItem = d;
-        	System.out.println(currentOrder.getOrderList());
+        	currentOrder.printOrder();
         }
     }
         
