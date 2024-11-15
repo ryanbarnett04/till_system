@@ -299,6 +299,14 @@ public class GUI implements ActionListener {
         	recentItem = d;
         	currentOrder.printOrder();
         }
+        
+        if (e.getSource() == americano_blackMED) {
+        	Drink d = new Drink("Americano", 4.00, "MED");
+        	currentOrder.addItem(d);
+        	currentOrder.setOrderPrice(currentOrder.getOrderPrice() + 4.00);
+        	recentItem = d;
+        	currentOrder.printOrder();
+        }
     }
         
     // Panel creation methods    
