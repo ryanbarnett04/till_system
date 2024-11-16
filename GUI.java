@@ -3,6 +3,7 @@ package till_system;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class GUI implements ActionListener {
@@ -14,6 +15,11 @@ public class GUI implements ActionListener {
     private JPanel currentPanel;
     private String currentPanelName = "";
     private Object recentItem;
+    private ArrayList<JButton> drinkButtons = new ArrayList<JButton>(); // Type 0
+    private ArrayList<JButton> foodButtons = new ArrayList<JButton>(); // Type 1
+    private ArrayList<JButton> addonsButtons = new ArrayList<JButton>(); // Type 2
+    private ArrayList<JButton> navigationButtons = new ArrayList<JButton>(); // Type 3
+    private ArrayList<JButton> functionButtons = new ArrayList<JButton>(); // Type 4
     
     
     // Create frame and panels
@@ -77,134 +83,55 @@ public class GUI implements ActionListener {
         cardPanel = new JPanel(cardLayout);
 
         // Instantiate panels
-        homescreen = new JPanel();
-        homescreen.setLayout(null);
-        homescreen.setBackground(new Color(128, 0, 0));
-        
-        hot_drinks = new JPanel();
-        hot_drinks.setLayout(null);
-        hot_drinks.setBackground(new Color(128, 0, 0));
-        
-        iced_drinks = new JPanel();
-        iced_drinks.setLayout(null);
-        iced_drinks.setBackground(new Color(128, 0, 0));
-
-        food = new JPanel();
-        food.setLayout(null);
-        food.setBackground(new Color(128, 0, 0));
+        homescreen = createPanel(128, 0, 0);      
+        hot_drinks = createPanel(128, 0, 0);    
+        iced_drinks = createPanel(128, 0, 0);
+        food = createPanel(128, 0, 0);
         
         // Instantiate homescreen buttons
-        sit_in_button = new JButton("Sit-In");
-        sit_in_button.setBounds((screenSize.width / 2) - 225, (screenSize.height / 2) - 230, 450, 140);
-        sit_in_button.addActionListener(this);
-
-        take_away_button = new JButton("Take Away");
-        take_away_button.setBounds((screenSize.width / 2) - 225, (screenSize.height / 2) - 70, 450, 140);
-        take_away_button.addActionListener(this);
-
-        receipts_button = new JButton("Receipts");
-        receipts_button.setBounds((screenSize.width / 2) - 225, (screenSize.height / 2) + 90, 450, 140);
-        receipts_button.addActionListener(this);
+        sit_in_button = createButton("Sit-In", (screenSize.width / 2) - 225, (screenSize.height / 2) - 230, 450, 140, this, "Navigation");
+        take_away_button = createButton("Take Away", (screenSize.width / 2) - 225, (screenSize.height / 2) - 70, 450, 140, this, "Navigation");
+        receipts_button = createButton("Receipts", (screenSize.width / 2) - 225, (screenSize.height / 2) + 90, 450, 140, this, "Navigation");
 
         // Instantiate order screen top band buttons
-        change_location_button = new JButton("");
-        change_location_button.setBounds(20, 20, 90, 90);
-        change_location_button.addActionListener(this);
-
-        change_panel_drinks = new JButton("Drinks");
-        change_panel_drinks.setBounds(120, 20, 90, 90);
-        change_panel_drinks.addActionListener(this);
-
-        change_panel_food = new JButton("Food");
-        change_panel_food.setBounds(220, 20, 90, 90);
-        change_panel_food.addActionListener(this);
+        change_location_button = createButton("", 20, 20, 90, 90, this, "Function");
+        change_panel_drinks = createButton("Drinks", 120, 20, 90, 90, this, "Navigation");
+        change_panel_food = createButton("Food", 220, 20, 90, 90, this, "Navigation");
         
         // Instantiate drinks screen tab buttons
-        change_panel_hot_drinks = new JButton("Hot Drinks");
-        change_panel_hot_drinks.setBounds(20, 160, 170, 90);
-        change_panel_hot_drinks.addActionListener(this);
-        
-        change_panel_iced_drinks = new JButton("Iced Drinks");
-        change_panel_iced_drinks.setBounds(20, 270, 170, 90);
-        change_panel_iced_drinks.addActionListener(this);
+        change_panel_hot_drinks = createButton("Hot Drinks", 20, 160, 170, 90, this, "Navigation");      
+        change_panel_iced_drinks = createButton("Iced Drinks", 20, 270, 170, 90, this, "Navigation");
         
         // Instantiate hot drinks buttons
-        americano_blackSML = new JButton("Americano SML");
-        americano_blackSML.setBounds(265, 160, 170, 50);
-        americano_blackSML.addActionListener(this);
+        americano_blackSML = createButton("Americano SML", 265, 160, 170, 50, this, "Drink");       
+        americano_blackMED = createButton("Americano MED", 455, 160, 170, 50, this, "Drink");        
+        americano_blackLRG = createButton("Americano LRG", 645, 160, 170, 50, this, "Drink");
         
-        americano_blackMED = new JButton("Americano MED");
-        americano_blackMED.setBounds(455, 160, 170, 50);
-        americano_blackMED.addActionListener(this);
+        americano_whiteSML = createButton("Americano & Milk SML", 265, 230, 170, 50, this, "Drink");      
+        americano_whiteMED = createButton("Americano & Milk MED", 455, 230, 170, 50, this, "Drink");      
+        americano_whiteLRG = createButton("Americano & Milk LRG", 645, 230, 170, 50, this, "Drink");
         
-        americano_blackLRG = new JButton("Americano LRG");
-        americano_blackLRG.setBounds(645, 160, 170, 50);
-        americano_blackLRG.addActionListener(this);
+        latteSML = createButton("Lattle SML", 265, 300, 170, 50, this, "Drink");       
+        latteMED = createButton("Lattle MED", 455, 300, 170, 50, this, "Drink");        
+        latteLRG = createButton("Lattle LRG", 645, 300, 170, 50, this, "Drink");
+       
+        cappuccinoSML = createButton("Cappuccino SML", 265, 370, 170, 50, this, "Drink");      
+        cappuccinoMED = createButton("Cappuccino MED", 455, 370, 170, 50, this, "Drink");       
+        cappuccinoLRG = createButton("Cappuccino LRG", 645, 370, 170, 50, this, "Drink");
         
-        americano_whiteSML = new JButton("Americano & Milk SML");
-        americano_whiteSML.setBounds(265, 230, 170, 50);
-        americano_whiteSML.addActionListener(this);
-        
-        americano_whiteMED = new JButton("Americano & Milk MED");
-        americano_whiteMED.setBounds(455, 230, 170, 50);
-        americano_whiteMED.addActionListener(this);
-        
-        americano_whiteLRG = new JButton("Americano & Milk LRG");
-        americano_whiteLRG.setBounds(645, 230, 170, 50);
-        americano_whiteLRG.addActionListener(this);
-        
-        latteSML = new JButton("Latte SML");
-        latteSML.setBounds(265, 300, 170, 50);
-        latteSML.addActionListener(this);
-        
-        latteMED = new JButton("Latte MED");
-        latteMED.setBounds(455, 300, 170, 50);
-        latteMED.addActionListener(this);
-        
-        latteLRG = new JButton("Latte LRG");
-        latteLRG.setBounds(645, 300, 170, 50);
-        latteLRG.addActionListener(this);
-        
-        cappuccinoSML = new JButton("Cappuccino SML");
-        cappuccinoSML.setBounds(265, 370, 170, 50);
-        cappuccinoSML.addActionListener(this);
-        
-        cappuccinoMED = new JButton("Cappuccino MED");
-        cappuccinoMED.setBounds(455, 370, 170, 50);
-        cappuccinoMED.addActionListener(this);
-        
-        cappuccinoLRG = new JButton("Cappuccino LRG");
-        cappuccinoLRG.setBounds(645, 370, 170, 50);
-        cappuccinoLRG.addActionListener(this);
-        
-        mochaSML = new JButton("Mocha SML");
-        mochaSML.setBounds(265, 440, 170, 50);
-        mochaSML.addActionListener(this);
-        
-        mochaMED = new JButton("Mocha MED");
-        mochaMED.setBounds(455, 440, 170, 50);
-        mochaMED.addActionListener(this);
-        
-        mochaLRG = new JButton("Mocha LRG");
-        mochaLRG.setBounds(645, 440, 170, 50);
-        mochaLRG.addActionListener(this);
-        
-        flat_whiteSML = new JButton("Flat White SML");
-        flat_whiteSML.setBounds(265, 510, 270, 50);
-        flat_whiteSML.addActionListener(this);
-        
-        flat_blackSML = new JButton("Flat Black SML");
-        flat_blackSML.setBounds(545, 510, 270, 50);
-        flat_blackSML.addActionListener(this);
+        mochaSML = createButton("Mocha SML", 265, 440, 170, 50, this, "Drink");       
+        mochaMED = createButton("Mocha MED", 455, 440, 170, 50, this, "Drink");     
+        mochaLRG = createButton("Mocha LRG", 645, 440, 170, 50, this, "Drink");
+      
+        flat_whiteSML = createButton("Flat White SML", 265, 510, 270, 50, this, "Drink");       
+        flat_blackSML = createButton("Flat Black SML", 545, 510, 270, 50, this, "Drink"); 
         
         // Instantiate iced drinks buttons
         iced_latteSML = new JButton("Iced Latte SML");
         iced_latteSML.setBounds(220, 160, 120, 60);
         iced_latteSML.addActionListener(this);
         
-        toast = new JButton("Toast");
-        toast.setBounds(220, 120, 100, 80);
-        toast.addActionListener(this);
+        toast = createButton("Toast", 220, 120, 100, 80, this, "Food");
 
         // Non Shared Buttons
         homescreen.add(sit_in_button);
@@ -223,7 +150,7 @@ public class GUI implements ActionListener {
         currentPanelName = "Home";
     }
 
-    @Override
+    @Override // Button event handlers
     public void actionPerformed(ActionEvent e) {
         
         if (e.getSource() == change_location_button) {
@@ -293,23 +220,19 @@ public class GUI implements ActionListener {
         }
         
         if (e.getSource() == americano_blackSML) {
-        	Drink d = new Drink("Americano", 3.80, "SML");
-        	currentOrder.addItem(d);
-        	currentOrder.setOrderPrice(currentOrder.getOrderPrice() + 3.80);
-        	recentItem = d;
-        	currentOrder.printOrder();
+        	addToOrder(americano_blackSML, "Americano SML", 3.80, "SML", null);
         }
         
         if (e.getSource() == americano_blackMED) {
-        	Drink d = new Drink("Americano", 4.00, "MED");
-        	currentOrder.addItem(d);
-        	currentOrder.setOrderPrice(currentOrder.getOrderPrice() + 4.00);
-        	recentItem = d;
-        	currentOrder.printOrder();
+        	addToOrder(americano_blackSML, "Americano MED", 4.00, "MED", null);
+        }
+        
+        if (e.getSource() == toast) {
+        	addToOrder(toast, "Toast", 2.40, null, null);
         }
     }
-        
-    // Panel creation methods    
+             
+    // Panel rendering methods    
     public void create_top_bar(JPanel panel) {
     	panel.add(change_location_button);
     	panel.add(change_panel_drinks);
@@ -373,4 +296,81 @@ public class GUI implements ActionListener {
     	}
     	cardLayout.show(cardPanel, "Food");
     }
+    
+    // Create panel method
+    public JPanel createPanel(int r, int g, int b) {
+    	JPanel jp = new JPanel();
+    	jp.setLayout(null);
+    	jp.setBackground(new Color(r, g, b));
+    	return jp;
+    }
+    
+    // Create button method
+    public JButton createButton(String buttonText, int x, int y, int width, int height, ActionListener al, String buttonType) {
+    	JButton jb = new JButton(buttonText);
+    	jb.setBounds(x, y, width, height);
+    	jb.addActionListener(al);
+    	switch(buttonType) {
+    	case "Drink":
+    		addButtonToList(jb, getDrinksButtons());
+    		break;
+    	case "Food":
+    		addButtonToList(jb, getFoodButtons());
+    		break;
+    	case "Addon":
+    		addButtonToList(jb, getAddonsButtons());
+    		break;
+    	case "Navigation":
+    		addButtonToList(jb, getNavigationButtons());
+    		break;
+    	case "Function":
+    		addButtonToList(jb, getFunctionButtons());
+    		break;
+    	}
+    	return jb;
+    }
+    
+    // Add button to list
+    public void addButtonToList(JButton button, ArrayList<JButton> ar) {
+		ar.add(button);
+	}
+    
+    // Add item to order - Size is ArrayList of strings instead of strings to simulate optional parameters
+    public void addToOrder(JButton button, String name, double price, String size, String addonType) {
+    	Object item = null;
+    	if (drinkButtons.contains(button)) {
+    		item = new Drink(name, price, size);
+    	} else if (foodButtons.contains(button)) {
+    		item = new Food(name, price);
+    	} else {
+    		item = new Add_ons(name, price, addonType);
+    	}
+    	currentOrder.addItem(item);
+    	currentOrder.setOrderPrice(currentOrder.getOrderPrice() + price);
+    	recentItem = item;
+    	currentOrder.printOrder();
+    }
+    
+    // Getters for button lists
+    public ArrayList<JButton> getDrinksButtons() {
+    	return this.drinkButtons;
+    }
+    
+    public ArrayList<JButton> getFoodButtons() {
+    	return this.foodButtons;
+    }
+    
+    public ArrayList<JButton> getAddonsButtons() {
+    	return this.addonsButtons;
+    }
+    
+    public ArrayList<JButton> getNavigationButtons() {
+    	return this.navigationButtons;
+    }
+    
+    public ArrayList<JButton> getFunctionButtons() {
+    	return this.functionButtons;
+    }
+        
+   
 }

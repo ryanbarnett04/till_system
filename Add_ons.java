@@ -3,11 +3,11 @@ package till_system;
 public class Add_ons {
 	
 	private String name;
-	private float price;
+	private double price;
 	private String type;
 	
 	
-	public Add_ons(String name, float price, String type) {
+	public Add_ons(String name, double price, String type) {
 		this.name = name;
 		this.price = price;
 		this.type = type;
@@ -19,7 +19,7 @@ public class Add_ons {
 	}
 
 
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 

@@ -76,7 +76,7 @@ public class Order {
 				System.out.println(f.getName() + " £" + df.format(f.getItemPrice()));
 			}
 		}
-		System.out.println("\n");
+		System.out.println("Total: £" + df.format(totalPrice) + "\n");
 	}
 
 
