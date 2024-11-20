@@ -1,31 +1,24 @@
 package till_system;
 
-public class Add_ons {
-	
-	private String name;
-	private double price;
-	private String type;
-	
-	
-	public Add_ons(String name, double price, String type) {
+public class Add_ons extends Item {
+
+	private String independant;
+	private String addType;
+		
+	public Add_ons(String name, double price, String addType, String independant) {
 		this.name = name;
-		this.price = price;
-		this.type = type;
+		this.itemPrice = price;
+		this.type = "Add On";
+		this.addType = addType;
+		this.independant = independant;
 	}
-
-
-	public String getName() {
-		return name;
+	
+	public String getIndependant() {
+		return independant;
 	}
-
-
-	public double getPrice() {
-		return price;
-	}
-
-
-	public String getType() {
-		return type;
+	
+	public String getAddType() {
+		return addType;
 	}
 
 

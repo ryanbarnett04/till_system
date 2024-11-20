@@ -8,7 +8,7 @@ public class Order {
 	DecimalFormat df = new DecimalFormat("0.00");
 	private String location;
 	private double totalPrice;
-	private ArrayList<Object> orderList;
+	private ArrayList<Item> orderList;
 	
 	public Order() {
 		
@@ -17,7 +17,7 @@ public class Order {
 	public Order(String location) {
 		this.location = location;
 		this.totalPrice = 0.0;
-		this.orderList = new ArrayList<Object>();
+		this.orderList = new ArrayList<Item>();
 	}
 	
 	public String getLocation() {
@@ -36,11 +36,11 @@ public class Order {
 		this.totalPrice = totalPrice;
 	}
 	
-	public ArrayList<Object> getOrderList() {
+	public ArrayList<Item> getOrderList() {
 		return this.orderList;
 	}
 	
-	public void addItem(Object item) {
+	public void addItem(Item item) {
 		orderList.add(item);
 	}
 	
@@ -54,12 +54,10 @@ public class Order {
 	        return null;
 	    }
 
-	    Object item = orderList.get(index);
+	    Item item = orderList.get(index);
 
-	    if (item instanceof Food) {
-	        return ((Food) item).getAdd_ons();
-	    } else if (item instanceof Drink) {
-	        return ((Drink) item).getAdd_ons();
+	    if (item instanceof Food || item instanceof Drink) {
+	        return (item.getAdd_ons());
 	    } else {
 	        return null;
 	    }
@@ -67,13 +65,18 @@ public class Order {
 	
 	public void printOrder() {
 		System.out.println("Order:");
-		for (Object o : orderList) {
-			if (o instanceof Drink) {
-				Drink d = (Drink) o;
+		for (Item i : orderList) {
+			if (i instanceof Drink) {
+				Drink d = (Drink) i;
 				System.out.println(d.getSize() + " " + d.getName() + " £" + df.format(d.getItemPrice()));
-			} else if (o instanceof Food) {
-				Food f = (Food) o;
+				d.printAddOns();
+			} else if (i instanceof Food) {
+				Food f = (Food) i;
 				System.out.println(f.getName() + " £" + df.format(f.getItemPrice()));
+				f.printAddOns();
+			} else if (i instanceof Add_ons && ((Add_ons) i).getIndependant().equals("IND")) {
+				Add_ons add = (Add_ons) i;
+				System.out.println("IND: " + add.getName() + " £" + df.format(add.getItemPrice()));
 			}
 		}
 		System.out.println("Total: £" + df.format(totalPrice) + "\n");

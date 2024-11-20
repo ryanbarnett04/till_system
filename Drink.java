@@ -1,15 +1,8 @@
 package till_system;
 
-import java.util.ArrayList;
-
-public class Drink extends Order {
+public class Drink extends Item {
 	
-	private String name;
-	private double itemPrice;
 	private String size;
-	private String type;
-	private ArrayList<Add_ons> add_ons = new ArrayList<Add_ons>();
-
 	
 	public Drink(String name, double itemPrice, String size) {
 		this.name = name;
@@ -18,28 +11,8 @@ public class Drink extends Order {
 		this.type = "Drink";
 	}
 	
-
-	public String getName() {
-		return name;
-	}
-
-
-	public double getItemPrice() {
-		return itemPrice;
-	}
-
 	public String getSize() {
 		return size;
 	}
-	
-	public String getType() {
-		return type;
-	}
-
-
-	public ArrayList<Add_ons> getAdd_ons() {
-		return add_ons;
-	}
-
 	
 }
