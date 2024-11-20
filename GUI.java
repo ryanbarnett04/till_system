@@ -572,8 +572,10 @@ public class GUI implements ActionListener {
     	
     	if (valid) {
     		currentOrder.setOrderPrice(currentOrder.getOrderPrice() + price);
+    		currentOrder.printOrder();
+    	} else {
+    		System.out.println("Context Item Wrong Type for Add-On");
     	}
-    	currentOrder.printOrder();
     }
     
     // Getters for button lists
