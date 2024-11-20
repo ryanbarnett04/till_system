@@ -276,6 +276,7 @@ public class GUI implements ActionListener {
             create_iced_drinks_panel();
         }
         
+        // Drinks button
         if (e.getSource() == americano_blackSML) {
         	addToOrder(americano_blackSML, "Americano", 3.60, "SML", null, null);
         }
@@ -342,6 +343,58 @@ public class GUI implements ActionListener {
         
         if (e.getSource() == flat_blackSML) {
         	addToOrder(flat_blackSML, "Flat Black", 3.40, "SML", null, null);
+        }
+        
+        if (e.getSource() == iced_americanoSML) {
+        	addToOrder(iced_americanoSML, "Iced Americano", 3.80, "SML", null, null);
+        }
+        
+        if (e.getSource() == iced_americanoMED) {
+        	addToOrder(iced_americanoMED, "Iced Americano", 4.00, "MED", null, null);
+        }
+        
+        if (e.getSource() == iced_americanoLRG) {
+        	addToOrder(iced_americanoLRG, "Iced Americano", 4.20, "LRG", null, null);
+        }
+        
+        if (e.getSource() == iced_latteSML) {
+        	addToOrder(iced_latteSML, "Iced Latte", 3.80, "SML", null, null);
+        }
+        
+        if (e.getSource() == iced_latteMED) {
+        	addToOrder(iced_latteMED, "Iced Latte", 4.00, "MED", null, null);
+        }
+        
+        if (e.getSource() == iced_latteLRG) {
+        	addToOrder(iced_latteLRG, "Iced Latte", 4.20, "LRG", null, null);
+        }
+        
+        if (e.getSource() == iced_cappuccinoSML) {
+        	addToOrder(iced_cappuccinoSML, "Iced Cappuccino", 3.80, "SML", null, null);
+        }
+        
+        if (e.getSource() == iced_cappuccinoMED) {
+        	addToOrder(iced_cappuccinoMED, "Iced Cappuccino", 4.00, "MED", null, null);
+        }
+        
+        if (e.getSource() == iced_cappuccinoLRG) {
+        	addToOrder(iced_cappuccinoLRG, "Iced Cappuccino", 4.20, "LRG", null, null);
+        }
+        
+        if (e.getSource() == iced_mochaSML) {
+        	addToOrder(iced_mochaSML, "Iced Mocha", 3.80, "SML", null, null);
+        }
+        
+        if (e.getSource() == iced_mochaMED) {
+        	addToOrder(iced_mochaMED, "Iced Mocha", 4.00, "MED", null, null);
+        }
+        
+        if (e.getSource() == iced_mochaLRG) {
+        	addToOrder(iced_mochaLRG, "Iced Mocha", 4.20, "LRG", null, null);
+        }
+        
+        if (e.getSource() == iced_flat_whiteSML) {
+        	addToOrder(iced_flat_whiteSML, "Iced Flat White", 3.80, "SML", null, null);
         }
         
         if (e.getSource() == toast) {
